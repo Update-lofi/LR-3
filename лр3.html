@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>лр3</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="лабораторная-работа-№3-база-данных-для-«личного-дневника»">Лабораторная работа №3: База данных для «Личного дневника»</h2>
+<p><strong>Цель:</strong> Создать базу данных SQLite для проекта «Личный дневник» и реализовать функции для работы с записями.</p>
+<p><strong>Связь с предыдущими работами:</strong> Это продолжение ЛР1–ЛР2. Теперь добавляем базу данных.</p>
+<h3 id="задание-1.-создайте-файл-database.py">Задание 1. Создайте файл <code>database.py</code></h3>
+<p>Создайте файл <code>database.py</code> со следующими функциями:</p>
+
+<table>
+<thead>
+<tr>
+<th>Функция</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_db_connection()</code></td>
+<td>Устанавливает соединение с БД, возвращает объект соединения</td>
+</tr>
+<tr>
+<td><code>init_db()</code></td>
+<td>Создаёт таблицу <code>entries</code>, если её нет</td>
+</tr>
+<tr>
+<td><code>add_entry(title, content)</code></td>
+<td>Добавляет новую запись (дата ставится автоматически)</td>
+</tr>
+<tr>
+<td><code>get_all_entries()</code></td>
+<td>Возвращает все записи, отсортированные от новых к старым</td>
+</tr>
+<tr>
+<td><code>get_entry(entry_id)</code></td>
+<td>Возвращает одну запись по id</td>
+</tr>
+<tr>
+<td><code>update_entry(entry_id, title, content)</code></td>
+<td>Обновляет заголовок и текст записи</td>
+</tr>
+<tr>
+<td><code>delete_entry(entry_id)</code></td>
+<td>Удаляет запись по id</td>
+</tr>
+</tbody>
+</table><p><strong>Требования к таблице <code>entries</code>:</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Ограничения</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>INTEGER</td>
+<td>PRIMARY KEY AUTOINCREMENT</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>TEXT</td>
+<td>NOT NULL</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td>TEXT</td>
+<td>NOT NULL</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>DATE</td>
+<td>NOT NULL</td>
+</tr>
+</tbody>
+</table><h3 id="задание-2.-создайте-тестовый-скрипт-test_db.py">Задание 2. Создайте тестовый скрипт <code>test_db.py</code></h3>
+<p>Напишите скрипт, который последовательно:</p>
+<ol>
+<li>Инициализирует базу данных</li>
+<li>Добавляет <strong>3 записи</strong> с разными заголовками и текстом</li>
+<li>Выводит все записи в формате: <code>id. Заголовок (дата)</code></li>
+<li>Выводит <strong>одну запись</strong> с <code>id = 2</code> (заголовок, содержание, дата)</li>
+<li>Обновляет запись с <code>id = 2</code> (меняет заголовок и текст)</li>
+<li>Выводит обновлённую запись для проверки</li>
+<li>Удаляет запись с <code>id = 3</code></li>
+<li>Выводит оставшиеся записи</li>
+</ol>
+<h3 id="задание-3.-самостоятельная-работа">Задание 3. Самостоятельная работа</h3>
+<p>Добавьте в <code>database.py</code> следующие функции:</p>
+
+<table>
+<thead>
+<tr>
+<th>Функция</th>
+<th>Что делает</th>
+<th>SQL-подсказка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_entries_count()</code></td>
+<td>Возвращает количество записей</td>
+<td><code>SELECT COUNT(*) FROM entries</code></td>
+</tr>
+<tr>
+<td><code>search_entries(query)</code></td>
+<td>Ищет записи, где заголовок содержит <code>query</code></td>
+<td><code>SELECT * FROM entries WHERE title LIKE '%?%'</code></td>
+</tr>
+<tr>
+<td><code>delete_all_entries()</code></td>
+<td>Удаляет все записи</td>
+<td><code>DELETE FROM entries</code></td>
+</tr>
+<tr>
+<td><code>get_last_week_entries()</code></td>
+<td>Возвращает записи за последние 7 дней</td>
+<td><code>SELECT * FROM entries WHERE created_at &gt;= date('now', '-7 days')</code></td>
+</tr>
+</tbody>
+</table></div>
+</body>
+
+</html>
