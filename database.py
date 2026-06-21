@@ -102,6 +102,61 @@ def delete_entry(entry_id):
         DELETE FROM entries
         WHERE id = ?
     ''', (entry_id,))
+
+def get_entries_count():
+    """Возвращает количество записей"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute('SELECT COUNT(*) FROM entries')
+    count = cursor.fetchone()[0]
+    
+    conn.close()
+    return count
+
+
+def search_entries(query):
+    """Ищет записи, где заголовок содержит query"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+        SELECT * FROM entries
+        WHERE title LIKE ?
+    ''', (f'%{query}%',))
+    
+    entries = cursor.fetchall()
+    conn.close()
+    
+    return entries
+
+
+def delete_all_entries():
+    """Удаляет все записи"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute('DELETE FROM entries')
+    
+    conn.commit()
+    conn.close()
+
+
+def get_last_week_entries():
+    """Возвращает записи за последние 7 дней"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+        SELECT * FROM entries
+        WHERE created_at >= datetime('now', '-7 days')
+        ORDER BY created_at DESC
+    ''')
+    
+    entries = cursor.fetchall()
+    conn.close()
+    
+    return entries
     
     conn.commit()
     conn.close()
