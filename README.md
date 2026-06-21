@@ -1,4 +1,4 @@
-# LR1-2_personal-diary_Dinislamov_Mingazov
+# LR3_personal-diary_Dinislamov_Mingazov
 
 # Личный дневник
 
