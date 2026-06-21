@@ -8,8 +8,13 @@
 - Python
 - Flask
 - JSON (хранение данных)
+- SQLite (база данных)
 
 ## Запуск
 ```bash
 pip install flask
 python app.py
+
+## Тестирование
+python test_db.py
+python test_additional.py
